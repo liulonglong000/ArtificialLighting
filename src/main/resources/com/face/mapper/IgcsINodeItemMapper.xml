@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.face.mapper.IgcsINodeItemMapper" >
+  <resultMap id="BaseResultMap" type="com.face.model.IgcsINodeItem" >
+    <id column="gateway_id" property="gatewayId" jdbcType="VARCHAR" />
+    <id column="node_id" property="nodeId" jdbcType="VARCHAR" />
+    <id column="item_type" property="itemType" jdbcType="VARCHAR" />
+    <result column="item_value" property="itemValue" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    gateway_id, node_id, item_type, item_value, insert_time, update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.face.model.IgcsINodeItemExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from igcs_i_node_item
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.face.model.IgcsINodeItemKey" >
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from igcs_i_node_item
+    where gateway_id = #{gatewayId,jdbcType=VARCHAR}
+      and node_id = #{nodeId,jdbcType=VARCHAR}
+      and item_type = #{itemType,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.face.model.IgcsINodeItemKey" >
+    delete from igcs_i_node_item
+    where gateway_id = #{gatewayId,jdbcType=VARCHAR}
+      and node_id = #{nodeId,jdbcType=VARCHAR}
+      and item_type = #{itemType,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.face.model.IgcsINodeItemExample" >
+    delete from igcs_i_node_item
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.face.model.IgcsINodeItem" >
+    insert into igcs_i_node_item (gateway_id, node_id, item_type, 
+      item_value, insert_time, update_time
+      )
+    values (#{gatewayId,jdbcType=VARCHAR}, #{nodeId,jdbcType=VARCHAR}, #{itemType,jdbcType=VARCHAR}, 
+      #{itemValue,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.face.model.IgcsINodeItem" >
+    insert into igcs_i_node_item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gatewayId != null" >
+        gateway_id,
+      </if>
+      <if test="nodeId != null" >
+        node_id,
+      </if>
+      <if test="itemType != null" >
+        item_type,
+      </if>
+      <if test="itemValue != null" >
+        item_value,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gatewayId != null" >
+        #{gatewayId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeId != null" >
+        #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemType != null" >
+        #{itemType,jdbcType=VARCHAR},
+      </if>
+      <if test="itemValue != null" >
+        #{itemValue,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.face.model.IgcsINodeItemExample" resultType="java.lang.Integer" >
+    select count(*) from igcs_i_node_item
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update igcs_i_node_item
+    <set >
+      <if test="record.gatewayId != null" >
+        gateway_id = #{record.gatewayId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nodeId != null" >
+        node_id = #{record.nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemType != null" >
+        item_type = #{record.itemType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemValue != null" >
+        item_value = #{record.itemValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.insertTime != null" >
+        insert_time = #{record.insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update igcs_i_node_item
+    set gateway_id = #{record.gatewayId,jdbcType=VARCHAR},
+      node_id = #{record.nodeId,jdbcType=VARCHAR},
+      item_type = #{record.itemType,jdbcType=VARCHAR},
+      item_value = #{record.itemValue,jdbcType=VARCHAR},
+      insert_time = #{record.insertTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.face.model.IgcsINodeItem" >
+    update igcs_i_node_item
+    <set >
+      <if test="itemValue != null" >
+        item_value = #{itemValue,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where gateway_id = #{gatewayId,jdbcType=VARCHAR}
+      and node_id = #{nodeId,jdbcType=VARCHAR}
+      and item_type = #{itemType,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.face.model.IgcsINodeItem" >
+    update igcs_i_node_item
+    set item_value = #{itemValue,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where gateway_id = #{gatewayId,jdbcType=VARCHAR}
+      and node_id = #{nodeId,jdbcType=VARCHAR}
+      and item_type = #{itemType,jdbcType=VARCHAR}
+  </update>
+</mapper>

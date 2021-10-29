@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.face.mapper.IgcsAcontroltypeMapper" >
+  <resultMap id="BaseResultMap" type="com.face.model.IgcsAcontroltype" >
+    <id column="control_type" property="controlType" jdbcType="VARCHAR" />
+    <result column="control_name" property="controlName" jdbcType="VARCHAR" />
+    <result column="in_date" property="inDate" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    control_type, control_name, in_date, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.face.model.IgcsAcontroltypeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from igcs_a_controltype
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from igcs_a_controltype
+    where control_type = #{controlType,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from igcs_a_controltype
+    where control_type = #{controlType,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.face.model.IgcsAcontroltypeExample" >
+    delete from igcs_a_controltype
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.face.model.IgcsAcontroltype" >
+    insert into igcs_a_controltype (control_type, control_name, in_date, 
+      remark)
+    values (#{controlType,jdbcType=VARCHAR}, #{controlName,jdbcType=VARCHAR}, #{inDate,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.face.model.IgcsAcontroltype" >
+    insert into igcs_a_controltype
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="controlType != null" >
+        control_type,
+      </if>
+      <if test="controlName != null" >
+        control_name,
+      </if>
+      <if test="inDate != null" >
+        in_date,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="controlType != null" >
+        #{controlType,jdbcType=VARCHAR},
+      </if>
+      <if test="controlName != null" >
+        #{controlName,jdbcType=VARCHAR},
+      </if>
+      <if test="inDate != null" >
+        #{inDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.face.model.IgcsAcontroltypeExample" resultType="java.lang.Integer" >
+    select count(*) from igcs_a_controltype
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update igcs_a_controltype
+    <set >
+      <if test="record.controlType != null" >
+        control_type = #{record.controlType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.controlName != null" >
+        control_name = #{record.controlName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inDate != null" >
+        in_date = #{record.inDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update igcs_a_controltype
+    set control_type = #{record.controlType,jdbcType=VARCHAR},
+      control_name = #{record.controlName,jdbcType=VARCHAR},
+      in_date = #{record.inDate,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.face.model.IgcsAcontroltype" >
+    update igcs_a_controltype
+    <set >
+      <if test="controlName != null" >
+        control_name = #{controlName,jdbcType=VARCHAR},
+      </if>
+      <if test="inDate != null" >
+        in_date = #{inDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where control_type = #{controlType,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.face.model.IgcsAcontroltype" >
+    update igcs_a_controltype
+    set control_name = #{controlName,jdbcType=VARCHAR},
+      in_date = #{inDate,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where control_type = #{controlType,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.face.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.face.model.User" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="role" property="role" jdbcType="INTEGER" />
+    <result column="dept_id" property="deptId" jdbcType="INTEGER" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="truename" property="truename" jdbcType="VARCHAR" />
+    <result column="jobnumber" property="jobnumber" jdbcType="VARCHAR" />
+    <result column="parent_user_id" property="parentUserId" jdbcType="VARCHAR" />
+    <result column="park_id" property="parkId" jdbcType="VARCHAR" />
+    <result column="logo_addr" property="logoAddr" jdbcType="VARCHAR" />
+    <result column="usercname" property="usercname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, username, password, role, dept_id, phone, email, create_time, update_time, status, 
+    truename, jobnumber, parent_user_id, park_id, logo_addr, usercname
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.face.model.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.face.model.UserExample" >
+    delete from t_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.face.model.User" >
+    insert into t_user (id, username, password, 
+      role, dept_id, phone, 
+      email, create_time, update_time, 
+      status, truename, jobnumber, 
+      parent_user_id, park_id, logo_addr, 
+      usercname)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{role,jdbcType=INTEGER}, #{deptId,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER}, #{truename,jdbcType=VARCHAR}, #{jobnumber,jdbcType=VARCHAR}, 
+      #{parentUserId,jdbcType=VARCHAR}, #{parkId,jdbcType=VARCHAR}, #{logoAddr,jdbcType=VARCHAR}, 
+      #{usercname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.face.model.User" >
+    insert into t_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="role != null" >
+        role,
+      </if>
+      <if test="deptId != null" >
+        dept_id,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="truename != null" >
+        truename,
+      </if>
+      <if test="jobnumber != null" >
+        jobnumber,
+      </if>
+      <if test="parentUserId != null" >
+        parent_user_id,
+      </if>
+      <if test="parkId != null" >
+        park_id,
+      </if>
+      <if test="logoAddr != null" >
+        logo_addr,
+      </if>
+      <if test="usercname != null" >
+        usercname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null" >
+        #{role,jdbcType=INTEGER},
+      </if>
+      <if test="deptId != null" >
+        #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="truename != null" >
+        #{truename,jdbcType=VARCHAR},
+      </if>
+      <if test="jobnumber != null" >
+        #{jobnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="parentUserId != null" >
+        #{parentUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="parkId != null" >
+        #{parkId,jdbcType=VARCHAR},
+      </if>
+      <if test="logoAddr != null" >
+        #{logoAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="usercname != null" >
+        #{usercname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.face.model.UserExample" resultType="java.lang.Integer" >
+    select count(*) from t_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_user
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.role != null" >
+        role = #{record.role,jdbcType=INTEGER},
+      </if>
+      <if test="record.deptId != null" >
+        dept_id = #{record.deptId,jdbcType=INTEGER},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.truename != null" >
+        truename = #{record.truename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobnumber != null" >
+        jobnumber = #{record.jobnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentUserId != null" >
+        parent_user_id = #{record.parentUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parkId != null" >
+        park_id = #{record.parkId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logoAddr != null" >
+        logo_addr = #{record.logoAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usercname != null" >
+        usercname = #{record.usercname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_user
+    set id = #{record.id,jdbcType=INTEGER},
+      username = #{record.username,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      role = #{record.role,jdbcType=INTEGER},
+      dept_id = #{record.deptId,jdbcType=INTEGER},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER},
+      truename = #{record.truename,jdbcType=VARCHAR},
+      jobnumber = #{record.jobnumber,jdbcType=VARCHAR},
+      parent_user_id = #{record.parentUserId,jdbcType=VARCHAR},
+      park_id = #{record.parkId,jdbcType=VARCHAR},
+      logo_addr = #{record.logoAddr,jdbcType=VARCHAR},
+      usercname = #{record.usercname,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.face.model.User" >
+    update t_user
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null" >
+        role = #{role,jdbcType=INTEGER},
+      </if>
+      <if test="deptId != null" >
+        dept_id = #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="truename != null" >
+        truename = #{truename,jdbcType=VARCHAR},
+      </if>
+      <if test="jobnumber != null" >
+        jobnumber = #{jobnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="parentUserId != null" >
+        parent_user_id = #{parentUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="parkId != null" >
+        park_id = #{parkId,jdbcType=VARCHAR},
+      </if>
+      <if test="logoAddr != null" >
+        logo_addr = #{logoAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="usercname != null" >
+        usercname = #{usercname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.face.model.User" >
+    update t_user
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      role = #{role,jdbcType=INTEGER},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      truename = #{truename,jdbcType=VARCHAR},
+      jobnumber = #{jobnumber,jdbcType=VARCHAR},
+      parent_user_id = #{parentUserId,jdbcType=VARCHAR},
+      park_id = #{parkId,jdbcType=VARCHAR},
+      logo_addr = #{logoAddr,jdbcType=VARCHAR},
+      usercname = #{usercname,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <update id="updatePassword" parameterType="com.face.model.User">
+    update t_user
+    set
+      password = #{password,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="queryUserList" parameterType="com.face.model.User" resultType="com.face.dto.UserDTO">
+    select tu.id,tu.username,tu.usercname,tu.parent_user_id,tu.park_id,tu.logo_addr ,tu.role,tu.dept_id,tu.phone,tu.email,tu.create_time,tu.update_time,tu.dept_id, td.name as dept_name,tu.truename,tu.jobnumber from t_user tu INNER JOIN t_dept td on tu.dept_id = td.id
+    where tu.`status` = 0
+    <if test="username != null and username!=''">
+      and username = #{username,jdbcType=VARCHAR}
+    </if>
+      <if test="truename != null   and truename!=''">
+      and truename = #{truename,jdbcType=VARCHAR}
+    </if>
+      <if test="jobnumber != null  and jobnumber!=''">
+      and jobnumber = #{jobnumber,jdbcType=VARCHAR}
+    </if>
+  </select>
+</mapper>

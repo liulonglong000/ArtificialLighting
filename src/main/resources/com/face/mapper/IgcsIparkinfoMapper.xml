@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.face.mapper.IgcsIparkinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.face.model.IgcsIparkinfo" >
+    <id column="park_id" property="parkId" jdbcType="VARCHAR" />
+    <result column="park_name" property="parkName" jdbcType="VARCHAR" />
+    <result column="in_date" property="inDate" jdbcType="TIMESTAMP" />
+    <result column="park_addr" property="parkAddr" jdbcType="VARCHAR" />
+    <result column="park_pic" property="parkPic" jdbcType="VARCHAR" />
+    <result column="park_area" property="parkArea" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    park_id, park_name, in_date, park_addr, park_pic, park_area, user_id, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.face.model.IgcsIparkinfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from igcs_i_parkinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from igcs_i_parkinfo
+    where park_id = #{parkId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from igcs_i_parkinfo
+    where park_id = #{parkId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.face.model.IgcsIparkinfoExample" >
+    delete from igcs_i_parkinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.face.model.IgcsIparkinfo" >
+    insert into igcs_i_parkinfo (park_id, park_name, in_date, 
+      park_addr, park_pic, park_area, 
+      user_id, remark)
+    values (#{parkId,jdbcType=VARCHAR}, #{parkName,jdbcType=VARCHAR}, #{inDate,jdbcType=TIMESTAMP}, 
+      #{parkAddr,jdbcType=VARCHAR}, #{parkPic,jdbcType=VARCHAR}, #{parkArea,jdbcType=INTEGER}, 
+      #{userId,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.face.model.IgcsIparkinfo" >
+    insert into igcs_i_parkinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="parkId != null" >
+        park_id,
+      </if>
+      <if test="parkName != null" >
+        park_name,
+      </if>
+      <if test="inDate != null" >
+        in_date,
+      </if>
+      <if test="parkAddr != null" >
+        park_addr,
+      </if>
+      <if test="parkPic != null" >
+        park_pic,
+      </if>
+      <if test="parkArea != null" >
+        park_area,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="parkId != null" >
+        #{parkId,jdbcType=VARCHAR},
+      </if>
+      <if test="parkName != null" >
+        #{parkName,jdbcType=VARCHAR},
+      </if>
+      <if test="inDate != null" >
+        #{inDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="parkAddr != null" >
+        #{parkAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="parkPic != null" >
+        #{parkPic,jdbcType=VARCHAR},
+      </if>
+      <if test="parkArea != null" >
+        #{parkArea,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.face.model.IgcsIparkinfoExample" resultType="java.lang.Integer" >
+    select count(*) from igcs_i_parkinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update igcs_i_parkinfo
+    <set >
+      <if test="record.parkId != null" >
+        park_id = #{record.parkId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parkName != null" >
+        park_name = #{record.parkName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inDate != null" >
+        in_date = #{record.inDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.parkAddr != null" >
+        park_addr = #{record.parkAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parkPic != null" >
+        park_pic = #{record.parkPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parkArea != null" >
+        park_area = #{record.parkArea,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update igcs_i_parkinfo
+    set park_id = #{record.parkId,jdbcType=VARCHAR},
+      park_name = #{record.parkName,jdbcType=VARCHAR},
+      in_date = #{record.inDate,jdbcType=TIMESTAMP},
+      park_addr = #{record.parkAddr,jdbcType=VARCHAR},
+      park_pic = #{record.parkPic,jdbcType=VARCHAR},
+      park_area = #{record.parkArea,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.face.model.IgcsIparkinfo" >
+    update igcs_i_parkinfo
+    <set >
+      <if test="parkName != null" >
+        park_name = #{parkName,jdbcType=VARCHAR},
+      </if>
+      <if test="inDate != null" >
+        in_date = #{inDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="parkAddr != null" >
+        park_addr = #{parkAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="parkPic != null" >
+        park_pic = #{parkPic,jdbcType=VARCHAR},
+      </if>
+      <if test="parkArea != null" >
+        park_area = #{parkArea,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where park_id = #{parkId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.face.model.IgcsIparkinfo" >
+    update igcs_i_parkinfo
+    set park_name = #{parkName,jdbcType=VARCHAR},
+      in_date = #{inDate,jdbcType=TIMESTAMP},
+      park_addr = #{parkAddr,jdbcType=VARCHAR},
+      park_pic = #{parkPic,jdbcType=VARCHAR},
+      park_area = #{parkArea,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where park_id = #{parkId,jdbcType=VARCHAR}
+  </update>
+</mapper>

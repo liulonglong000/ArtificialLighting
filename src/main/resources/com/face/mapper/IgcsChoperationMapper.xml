@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.face.mapper.IgcsChoperationMapper" >
+  <resultMap id="BaseResultMap" type="com.face.model.IgcsChoperation" >
+    <result column="operate_id" property="operateId" jdbcType="VARCHAR" />
+    <result column="operate_group_id" property="operateGroupId" jdbcType="VARCHAR" />
+    <result column="gateway_id" property="gatewayId" jdbcType="VARCHAR" />
+    <result column="node_id" property="nodeId" jdbcType="VARCHAR" />
+    <result column="equipment_type_code" property="equipmentTypeCode" jdbcType="VARCHAR" />
+    <result column="equipment_id" property="equipmentId" jdbcType="VARCHAR" />
+    <result column="control_type" property="controlType" jdbcType="VARCHAR" />
+    <result column="control_parameter1" property="controlParameter1" jdbcType="VARCHAR" />
+    <result column="control_parameter2" property="controlParameter2" jdbcType="VARCHAR" />
+    <result column="control_parameter3" property="controlParameter3" jdbcType="VARCHAR" />
+    <result column="in_date" property="inDate" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    operate_id, operate_group_id, gateway_id, node_id, equipment_type_code, equipment_id, 
+    control_type, control_parameter1, control_parameter2, control_parameter3, in_date, 
+    update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.face.model.IgcsChoperationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from igcs_ch_operation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.face.model.IgcsChoperationExample" >
+    delete from igcs_ch_operation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.face.model.IgcsChoperation" >
+    insert into igcs_ch_operation (operate_id, operate_group_id, gateway_id, 
+      node_id, equipment_type_code, equipment_id, 
+      control_type, control_parameter1, control_parameter2, 
+      control_parameter3, in_date, update_time
+      )
+    values (#{operateId,jdbcType=VARCHAR}, #{operateGroupId,jdbcType=VARCHAR}, #{gatewayId,jdbcType=VARCHAR}, 
+      #{nodeId,jdbcType=VARCHAR}, #{equipmentTypeCode,jdbcType=VARCHAR}, #{equipmentId,jdbcType=VARCHAR}, 
+      #{controlType,jdbcType=VARCHAR}, #{controlParameter1,jdbcType=VARCHAR}, #{controlParameter2,jdbcType=VARCHAR}, 
+      #{controlParameter3,jdbcType=VARCHAR}, #{inDate,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.face.model.IgcsChoperation" >
+    insert into igcs_ch_operation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="operateId != null" >
+        operate_id,
+      </if>
+      <if test="operateGroupId != null" >
+        operate_group_id,
+      </if>
+      <if test="gatewayId != null" >
+        gateway_id,
+      </if>
+      <if test="nodeId != null" >
+        node_id,
+      </if>
+      <if test="equipmentTypeCode != null" >
+        equipment_type_code,
+      </if>
+      <if test="equipmentId != null" >
+        equipment_id,
+      </if>
+      <if test="controlType != null" >
+        control_type,
+      </if>
+      <if test="controlParameter1 != null" >
+        control_parameter1,
+      </if>
+      <if test="controlParameter2 != null" >
+        control_parameter2,
+      </if>
+      <if test="controlParameter3 != null" >
+        control_parameter3,
+      </if>
+      <if test="inDate != null" >
+        in_date,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="operateId != null" >
+        #{operateId,jdbcType=VARCHAR},
+      </if>
+      <if test="operateGroupId != null" >
+        #{operateGroupId,jdbcType=VARCHAR},
+      </if>
+      <if test="gatewayId != null" >
+        #{gatewayId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeId != null" >
+        #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentTypeCode != null" >
+        #{equipmentTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentId != null" >
+        #{equipmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="controlType != null" >
+        #{controlType,jdbcType=VARCHAR},
+      </if>
+      <if test="controlParameter1 != null" >
+        #{controlParameter1,jdbcType=VARCHAR},
+      </if>
+      <if test="controlParameter2 != null" >
+        #{controlParameter2,jdbcType=VARCHAR},
+      </if>
+      <if test="controlParameter3 != null" >
+        #{controlParameter3,jdbcType=VARCHAR},
+      </if>
+      <if test="inDate != null" >
+        #{inDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.face.model.IgcsChoperationExample" resultType="java.lang.Integer" >
+    select count(*) from igcs_ch_operation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update igcs_ch_operation
+    <set >
+      <if test="record.operateId != null" >
+        operate_id = #{record.operateId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operateGroupId != null" >
+        operate_group_id = #{record.operateGroupId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gatewayId != null" >
+        gateway_id = #{record.gatewayId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nodeId != null" >
+        node_id = #{record.nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentTypeCode != null" >
+        equipment_type_code = #{record.equipmentTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentId != null" >
+        equipment_id = #{record.equipmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.controlType != null" >
+        control_type = #{record.controlType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.controlParameter1 != null" >
+        control_parameter1 = #{record.controlParameter1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.controlParameter2 != null" >
+        control_parameter2 = #{record.controlParameter2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.controlParameter3 != null" >
+        control_parameter3 = #{record.controlParameter3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inDate != null" >
+        in_date = #{record.inDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update igcs_ch_operation
+    set operate_id = #{record.operateId,jdbcType=VARCHAR},
+      operate_group_id = #{record.operateGroupId,jdbcType=VARCHAR},
+      gateway_id = #{record.gatewayId,jdbcType=VARCHAR},
+      node_id = #{record.nodeId,jdbcType=VARCHAR},
+      equipment_type_code = #{record.equipmentTypeCode,jdbcType=VARCHAR},
+      equipment_id = #{record.equipmentId,jdbcType=VARCHAR},
+      control_type = #{record.controlType,jdbcType=VARCHAR},
+      control_parameter1 = #{record.controlParameter1,jdbcType=VARCHAR},
+      control_parameter2 = #{record.controlParameter2,jdbcType=VARCHAR},
+      control_parameter3 = #{record.controlParameter3,jdbcType=VARCHAR},
+      in_date = #{record.inDate,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.face.mapper.IgcsInodeinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.face.model.IgcsInodeinfo" >
+    <id column="node_id" property="nodeId" jdbcType="VARCHAR" />
+    <id column="gateway_id" property="gatewayId" jdbcType="VARCHAR" />
+    <result column="node_name" property="nodeName" jdbcType="VARCHAR" />
+    <result column="greenhouse_id" property="greenhouseId" jdbcType="VARCHAR" />
+    <result column="in_date" property="inDate" jdbcType="TIMESTAMP" />
+    <result column="frequency" property="frequency" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="last_connect_time" property="lastConnectTime" jdbcType="TIMESTAMP" />
+    <result column="node_addr" property="nodeAddr" jdbcType="VARCHAR" />
+    <result column="node_pic" property="nodePic" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    node_id, gateway_id, node_name, greenhouse_id, in_date, frequency, status, last_connect_time, 
+    node_addr, node_pic, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.face.model.IgcsInodeinfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from igcs_i_nodeinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.face.model.IgcsInodeinfoKey" >
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from igcs_i_nodeinfo
+    where node_id = #{nodeId,jdbcType=VARCHAR}
+      and gateway_id = #{gatewayId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.face.model.IgcsInodeinfoKey" >
+    delete from igcs_i_nodeinfo
+    where node_id = #{nodeId,jdbcType=VARCHAR}
+      and gateway_id = #{gatewayId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.face.model.IgcsInodeinfoExample" >
+    delete from igcs_i_nodeinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.face.model.IgcsInodeinfo" >
+    insert into igcs_i_nodeinfo (node_id, gateway_id, node_name, 
+      greenhouse_id, in_date, frequency, 
+      status, last_connect_time, node_addr, 
+      node_pic, remark)
+    values (#{nodeId,jdbcType=VARCHAR}, #{gatewayId,jdbcType=VARCHAR}, #{nodeName,jdbcType=VARCHAR}, 
+      #{greenhouseId,jdbcType=VARCHAR}, #{inDate,jdbcType=TIMESTAMP}, #{frequency,jdbcType=INTEGER}, 
+      #{status,jdbcType=VARCHAR}, #{lastConnectTime,jdbcType=TIMESTAMP}, #{nodeAddr,jdbcType=VARCHAR}, 
+      #{nodePic,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.face.model.IgcsInodeinfo" >
+    insert into igcs_i_nodeinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="nodeId != null" >
+        node_id,
+      </if>
+      <if test="gatewayId != null" >
+        gateway_id,
+      </if>
+      <if test="nodeName != null" >
+        node_name,
+      </if>
+      <if test="greenhouseId != null" >
+        greenhouse_id,
+      </if>
+      <if test="inDate != null" >
+        in_date,
+      </if>
+      <if test="frequency != null" >
+        frequency,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="lastConnectTime != null" >
+        last_connect_time,
+      </if>
+      <if test="nodeAddr != null" >
+        node_addr,
+      </if>
+      <if test="nodePic != null" >
+        node_pic,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="nodeId != null" >
+        #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="gatewayId != null" >
+        #{gatewayId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeName != null" >
+        #{nodeName,jdbcType=VARCHAR},
+      </if>
+      <if test="greenhouseId != null" >
+        #{greenhouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="inDate != null" >
+        #{inDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="frequency != null" >
+        #{frequency,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="lastConnectTime != null" >
+        #{lastConnectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nodeAddr != null" >
+        #{nodeAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="nodePic != null" >
+        #{nodePic,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.face.model.IgcsInodeinfoExample" resultType="java.lang.Integer" >
+    select count(*) from igcs_i_nodeinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update igcs_i_nodeinfo
+    <set >
+      <if test="record.nodeId != null" >
+        node_id = #{record.nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gatewayId != null" >
+        gateway_id = #{record.gatewayId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nodeName != null" >
+        node_name = #{record.nodeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.greenhouseId != null" >
+        greenhouse_id = #{record.greenhouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inDate != null" >
+        in_date = #{record.inDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.frequency != null" >
+        frequency = #{record.frequency,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastConnectTime != null" >
+        last_connect_time = #{record.lastConnectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.nodeAddr != null" >
+        node_addr = #{record.nodeAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nodePic != null" >
+        node_pic = #{record.nodePic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update igcs_i_nodeinfo
+    set node_id = #{record.nodeId,jdbcType=VARCHAR},
+      gateway_id = #{record.gatewayId,jdbcType=VARCHAR},
+      node_name = #{record.nodeName,jdbcType=VARCHAR},
+      greenhouse_id = #{record.greenhouseId,jdbcType=VARCHAR},
+      in_date = #{record.inDate,jdbcType=TIMESTAMP},
+      frequency = #{record.frequency,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=VARCHAR},
+      last_connect_time = #{record.lastConnectTime,jdbcType=TIMESTAMP},
+      node_addr = #{record.nodeAddr,jdbcType=VARCHAR},
+      node_pic = #{record.nodePic,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.face.model.IgcsInodeinfo" >
+    update igcs_i_nodeinfo
+    <set >
+      <if test="nodeName != null" >
+        node_name = #{nodeName,jdbcType=VARCHAR},
+      </if>
+      <if test="greenhouseId != null" >
+        greenhouse_id = #{greenhouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="inDate != null" >
+        in_date = #{inDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="frequency != null" >
+        frequency = #{frequency,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="lastConnectTime != null" >
+        last_connect_time = #{lastConnectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nodeAddr != null" >
+        node_addr = #{nodeAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="nodePic != null" >
+        node_pic = #{nodePic,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where node_id = #{nodeId,jdbcType=VARCHAR}
+      and gateway_id = #{gatewayId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.face.model.IgcsInodeinfo" >
+    update igcs_i_nodeinfo
+    set node_name = #{nodeName,jdbcType=VARCHAR},
+      greenhouse_id = #{greenhouseId,jdbcType=VARCHAR},
+      in_date = #{inDate,jdbcType=TIMESTAMP},
+      frequency = #{frequency,jdbcType=INTEGER},
+      status = #{status,jdbcType=VARCHAR},
+      last_connect_time = #{lastConnectTime,jdbcType=TIMESTAMP},
+      node_addr = #{nodeAddr,jdbcType=VARCHAR},
+      node_pic = #{nodePic,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where node_id = #{nodeId,jdbcType=VARCHAR}
+      and gateway_id = #{gatewayId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.face.mapper.IgcsIgreenhouseMapper" >
+  <resultMap id="BaseResultMap" type="com.face.model.IgcsIgreenhouse" >
+    <id column="greenhouse_id" property="greenhouseId" jdbcType="VARCHAR" />
+    <result column="greenhouse_name" property="greenhouseName" jdbcType="VARCHAR" />
+    <result column="park_id" property="parkId" jdbcType="VARCHAR" />
+    <result column="greenhouse_addr" property="greenhouseAddr" jdbcType="VARCHAR" />
+    <result column="greenhouse_pic" property="greenhousePic" jdbcType="VARCHAR" />
+    <result column="gateway_id" property="gatewayId" jdbcType="VARCHAR" />
+    <result column="in_date" property="inDate" jdbcType="TIMESTAMP" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    greenhouse_id, greenhouse_name, park_id, greenhouse_addr, greenhouse_pic, gateway_id, 
+    in_date, user_id, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.face.model.IgcsIgreenhouseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from igcs_i_greenhouse
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from igcs_i_greenhouse
+    where greenhouse_id = #{greenhouseId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from igcs_i_greenhouse
+    where greenhouse_id = #{greenhouseId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.face.model.IgcsIgreenhouseExample" >
+    delete from igcs_i_greenhouse
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.face.model.IgcsIgreenhouse" >
+    insert into igcs_i_greenhouse (greenhouse_id, greenhouse_name, park_id, 
+      greenhouse_addr, greenhouse_pic, gateway_id, 
+      in_date, user_id, remark
+      )
+    values (#{greenhouseId,jdbcType=VARCHAR}, #{greenhouseName,jdbcType=VARCHAR}, #{parkId,jdbcType=VARCHAR}, 
+      #{greenhouseAddr,jdbcType=VARCHAR}, #{greenhousePic,jdbcType=VARCHAR}, #{gatewayId,jdbcType=VARCHAR}, 
+      #{inDate,jdbcType=TIMESTAMP}, #{userId,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.face.model.IgcsIgreenhouse" >
+    insert into igcs_i_greenhouse
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="greenhouseId != null" >
+        greenhouse_id,
+      </if>
+      <if test="greenhouseName != null" >
+        greenhouse_name,
+      </if>
+      <if test="parkId != null" >
+        park_id,
+      </if>
+      <if test="greenhouseAddr != null" >
+        greenhouse_addr,
+      </if>
+      <if test="greenhousePic != null" >
+        greenhouse_pic,
+      </if>
+      <if test="gatewayId != null" >
+        gateway_id,
+      </if>
+      <if test="inDate != null" >
+        in_date,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="greenhouseId != null" >
+        #{greenhouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="greenhouseName != null" >
+        #{greenhouseName,jdbcType=VARCHAR},
+      </if>
+      <if test="parkId != null" >
+        #{parkId,jdbcType=VARCHAR},
+      </if>
+      <if test="greenhouseAddr != null" >
+        #{greenhouseAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="greenhousePic != null" >
+        #{greenhousePic,jdbcType=VARCHAR},
+      </if>
+      <if test="gatewayId != null" >
+        #{gatewayId,jdbcType=VARCHAR},
+      </if>
+      <if test="inDate != null" >
+        #{inDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.face.model.IgcsIgreenhouseExample" resultType="java.lang.Integer" >
+    select count(*) from igcs_i_greenhouse
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update igcs_i_greenhouse
+    <set >
+      <if test="record.greenhouseId != null" >
+        greenhouse_id = #{record.greenhouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.greenhouseName != null" >
+        greenhouse_name = #{record.greenhouseName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parkId != null" >
+        park_id = #{record.parkId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.greenhouseAddr != null" >
+        greenhouse_addr = #{record.greenhouseAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.greenhousePic != null" >
+        greenhouse_pic = #{record.greenhousePic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gatewayId != null" >
+        gateway_id = #{record.gatewayId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inDate != null" >
+        in_date = #{record.inDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update igcs_i_greenhouse
+    set greenhouse_id = #{record.greenhouseId,jdbcType=VARCHAR},
+      greenhouse_name = #{record.greenhouseName,jdbcType=VARCHAR},
+      park_id = #{record.parkId,jdbcType=VARCHAR},
+      greenhouse_addr = #{record.greenhouseAddr,jdbcType=VARCHAR},
+      greenhouse_pic = #{record.greenhousePic,jdbcType=VARCHAR},
+      gateway_id = #{record.gatewayId,jdbcType=VARCHAR},
+      in_date = #{record.inDate,jdbcType=TIMESTAMP},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.face.model.IgcsIgreenhouse" >
+    update igcs_i_greenhouse
+    <set >
+      <if test="greenhouseName != null" >
+        greenhouse_name = #{greenhouseName,jdbcType=VARCHAR},
+      </if>
+      <if test="parkId != null" >
+        park_id = #{parkId,jdbcType=VARCHAR},
+      </if>
+      <if test="greenhouseAddr != null" >
+        greenhouse_addr = #{greenhouseAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="greenhousePic != null" >
+        greenhouse_pic = #{greenhousePic,jdbcType=VARCHAR},
+      </if>
+      <if test="gatewayId != null" >
+        gateway_id = #{gatewayId,jdbcType=VARCHAR},
+      </if>
+      <if test="inDate != null" >
+        in_date = #{inDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where greenhouse_id = #{greenhouseId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.face.model.IgcsIgreenhouse" >
+    update igcs_i_greenhouse
+    set greenhouse_name = #{greenhouseName,jdbcType=VARCHAR},
+      park_id = #{parkId,jdbcType=VARCHAR},
+      greenhouse_addr = #{greenhouseAddr,jdbcType=VARCHAR},
+      greenhouse_pic = #{greenhousePic,jdbcType=VARCHAR},
+      gateway_id = #{gatewayId,jdbcType=VARCHAR},
+      in_date = #{inDate,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where greenhouse_id = #{greenhouseId,jdbcType=VARCHAR}
+  </update>
+</mapper>

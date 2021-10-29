@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.face.mapper.IgcsBTradeMapper" >
+  <resultMap id="BaseResultMap" type="com.face.model.IgcsBTrade" >
+    <id column="trade_id" property="tradeId" jdbcType="VARCHAR" />
+    <result column="gateway_id" property="gatewayId" jdbcType="VARCHAR" />
+    <result column="node_id" property="nodeId" jdbcType="VARCHAR" />
+    <result column="equipment_type_code" property="equipmentTypeCode" jdbcType="VARCHAR" />
+    <result column="equipment_id" property="equipmentId" jdbcType="VARCHAR" />
+    <result column="control_type" property="controlType" jdbcType="VARCHAR" />
+    <result column="control_parameter1" property="controlParameter1" jdbcType="VARCHAR" />
+    <result column="control_parameter2" property="controlParameter2" jdbcType="VARCHAR" />
+    <result column="control_parameter3" property="controlParameter3" jdbcType="VARCHAR" />
+    <result column="message" property="message" jdbcType="VARCHAR" />
+    <result column="insert_way" property="insertWay" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="strategy_id" property="strategyId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="pre_deal_time" property="preDealTime" jdbcType="TIMESTAMP" />
+    <result column="deal_time" property="dealTime" jdbcType="TIMESTAMP" />
+    <result column="deal_count" property="dealCount" jdbcType="INTEGER" />
+    <result column="finish_time" property="finishTime" jdbcType="TIMESTAMP" />
+    <result column="is_deal" property="isDeal" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    trade_id, gateway_id, node_id, equipment_type_code, equipment_id, control_type, control_parameter1, 
+    control_parameter2, control_parameter3, message, insert_way, user_id, strategy_id, 
+    insert_time, pre_deal_time, deal_time, deal_count, finish_time, is_deal, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.face.model.IgcsBTradeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from igcs_b_trade
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from igcs_b_trade
+    where trade_id = #{tradeId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from igcs_b_trade
+    where trade_id = #{tradeId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.face.model.IgcsBTradeExample" >
+    delete from igcs_b_trade
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.face.model.IgcsBTrade" >
+    insert into igcs_b_trade (trade_id, gateway_id, node_id, 
+      equipment_type_code, equipment_id, control_type, 
+      control_parameter1, control_parameter2, control_parameter3, 
+      message, insert_way, user_id, 
+      strategy_id, insert_time, pre_deal_time, 
+      deal_time, deal_count, finish_time, 
+      is_deal, remark)
+    values (#{tradeId,jdbcType=VARCHAR}, #{gatewayId,jdbcType=VARCHAR}, #{nodeId,jdbcType=VARCHAR}, 
+      #{equipmentTypeCode,jdbcType=VARCHAR}, #{equipmentId,jdbcType=VARCHAR}, #{controlType,jdbcType=VARCHAR}, 
+      #{controlParameter1,jdbcType=VARCHAR}, #{controlParameter2,jdbcType=VARCHAR}, #{controlParameter3,jdbcType=VARCHAR}, 
+      #{message,jdbcType=VARCHAR}, #{insertWay,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+      #{strategyId,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}, #{preDealTime,jdbcType=TIMESTAMP}, 
+      #{dealTime,jdbcType=TIMESTAMP}, #{dealCount,jdbcType=INTEGER}, #{finishTime,jdbcType=TIMESTAMP}, 
+      #{isDeal,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.face.model.IgcsBTrade" >
+    insert into igcs_b_trade
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tradeId != null" >
+        trade_id,
+      </if>
+      <if test="gatewayId != null" >
+        gateway_id,
+      </if>
+      <if test="nodeId != null" >
+        node_id,
+      </if>
+      <if test="equipmentTypeCode != null" >
+        equipment_type_code,
+      </if>
+      <if test="equipmentId != null" >
+        equipment_id,
+      </if>
+      <if test="controlType != null" >
+        control_type,
+      </if>
+      <if test="controlParameter1 != null" >
+        control_parameter1,
+      </if>
+      <if test="controlParameter2 != null" >
+        control_parameter2,
+      </if>
+      <if test="controlParameter3 != null" >
+        control_parameter3,
+      </if>
+      <if test="message != null" >
+        message,
+      </if>
+      <if test="insertWay != null" >
+        insert_way,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="strategyId != null" >
+        strategy_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+      <if test="preDealTime != null" >
+        pre_deal_time,
+      </if>
+      <if test="dealTime != null" >
+        deal_time,
+      </if>
+      <if test="dealCount != null" >
+        deal_count,
+      </if>
+      <if test="finishTime != null" >
+        finish_time,
+      </if>
+      <if test="isDeal != null" >
+        is_deal,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tradeId != null" >
+        #{tradeId,jdbcType=VARCHAR},
+      </if>
+      <if test="gatewayId != null" >
+        #{gatewayId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeId != null" >
+        #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentTypeCode != null" >
+        #{equipmentTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentId != null" >
+        #{equipmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="controlType != null" >
+        #{controlType,jdbcType=VARCHAR},
+      </if>
+      <if test="controlParameter1 != null" >
+        #{controlParameter1,jdbcType=VARCHAR},
+      </if>
+      <if test="controlParameter2 != null" >
+        #{controlParameter2,jdbcType=VARCHAR},
+      </if>
+      <if test="controlParameter3 != null" >
+        #{controlParameter3,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="insertWay != null" >
+        #{insertWay,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyId != null" >
+        #{strategyId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="preDealTime != null" >
+        #{preDealTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dealTime != null" >
+        #{dealTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dealCount != null" >
+        #{dealCount,jdbcType=INTEGER},
+      </if>
+      <if test="finishTime != null" >
+        #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeal != null" >
+        #{isDeal,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.face.model.IgcsBTradeExample" resultType="java.lang.Integer" >
+    select count(*) from igcs_b_trade
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update igcs_b_trade
+    <set >
+      <if test="record.tradeId != null" >
+        trade_id = #{record.tradeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gatewayId != null" >
+        gateway_id = #{record.gatewayId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nodeId != null" >
+        node_id = #{record.nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentTypeCode != null" >
+        equipment_type_code = #{record.equipmentTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentId != null" >
+        equipment_id = #{record.equipmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.controlType != null" >
+        control_type = #{record.controlType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.controlParameter1 != null" >
+        control_parameter1 = #{record.controlParameter1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.controlParameter2 != null" >
+        control_parameter2 = #{record.controlParameter2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.controlParameter3 != null" >
+        control_parameter3 = #{record.controlParameter3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.message != null" >
+        message = #{record.message,jdbcType=VARCHAR},
+      </if>
+      <if test="record.insertWay != null" >
+        insert_way = #{record.insertWay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.strategyId != null" >
+        strategy_id = #{record.strategyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.insertTime != null" >
+        insert_time = #{record.insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.preDealTime != null" >
+        pre_deal_time = #{record.preDealTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dealTime != null" >
+        deal_time = #{record.dealTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dealCount != null" >
+        deal_count = #{record.dealCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.finishTime != null" >
+        finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isDeal != null" >
+        is_deal = #{record.isDeal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update igcs_b_trade
+    set trade_id = #{record.tradeId,jdbcType=VARCHAR},
+      gateway_id = #{record.gatewayId,jdbcType=VARCHAR},
+      node_id = #{record.nodeId,jdbcType=VARCHAR},
+      equipment_type_code = #{record.equipmentTypeCode,jdbcType=VARCHAR},
+      equipment_id = #{record.equipmentId,jdbcType=VARCHAR},
+      control_type = #{record.controlType,jdbcType=VARCHAR},
+      control_parameter1 = #{record.controlParameter1,jdbcType=VARCHAR},
+      control_parameter2 = #{record.controlParameter2,jdbcType=VARCHAR},
+      control_parameter3 = #{record.controlParameter3,jdbcType=VARCHAR},
+      message = #{record.message,jdbcType=VARCHAR},
+      insert_way = #{record.insertWay,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      strategy_id = #{record.strategyId,jdbcType=VARCHAR},
+      insert_time = #{record.insertTime,jdbcType=TIMESTAMP},
+      pre_deal_time = #{record.preDealTime,jdbcType=TIMESTAMP},
+      deal_time = #{record.dealTime,jdbcType=TIMESTAMP},
+      deal_count = #{record.dealCount,jdbcType=INTEGER},
+      finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
+      is_deal = #{record.isDeal,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.face.model.IgcsBTrade" >
+    update igcs_b_trade
+    <set >
+      <if test="gatewayId != null" >
+        gateway_id = #{gatewayId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeId != null" >
+        node_id = #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentTypeCode != null" >
+        equipment_type_code = #{equipmentTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentId != null" >
+        equipment_id = #{equipmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="controlType != null" >
+        control_type = #{controlType,jdbcType=VARCHAR},
+      </if>
+      <if test="controlParameter1 != null" >
+        control_parameter1 = #{controlParameter1,jdbcType=VARCHAR},
+      </if>
+      <if test="controlParameter2 != null" >
+        control_parameter2 = #{controlParameter2,jdbcType=VARCHAR},
+      </if>
+      <if test="controlParameter3 != null" >
+        control_parameter3 = #{controlParameter3,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null" >
+        message = #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="insertWay != null" >
+        insert_way = #{insertWay,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyId != null" >
+        strategy_id = #{strategyId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="preDealTime != null" >
+        pre_deal_time = #{preDealTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dealTime != null" >
+        deal_time = #{dealTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dealCount != null" >
+        deal_count = #{dealCount,jdbcType=INTEGER},
+      </if>
+      <if test="finishTime != null" >
+        finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeal != null" >
+        is_deal = #{isDeal,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where trade_id = #{tradeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.face.model.IgcsBTrade" >
+    update igcs_b_trade
+    set gateway_id = #{gatewayId,jdbcType=VARCHAR},
+      node_id = #{nodeId,jdbcType=VARCHAR},
+      equipment_type_code = #{equipmentTypeCode,jdbcType=VARCHAR},
+      equipment_id = #{equipmentId,jdbcType=VARCHAR},
+      control_type = #{controlType,jdbcType=VARCHAR},
+      control_parameter1 = #{controlParameter1,jdbcType=VARCHAR},
+      control_parameter2 = #{controlParameter2,jdbcType=VARCHAR},
+      control_parameter3 = #{controlParameter3,jdbcType=VARCHAR},
+      message = #{message,jdbcType=VARCHAR},
+      insert_way = #{insertWay,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      strategy_id = #{strategyId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      pre_deal_time = #{preDealTime,jdbcType=TIMESTAMP},
+      deal_time = #{dealTime,jdbcType=TIMESTAMP},
+      deal_count = #{dealCount,jdbcType=INTEGER},
+      finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      is_deal = #{isDeal,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where trade_id = #{tradeId,jdbcType=VARCHAR}
+  </update>
+</mapper>

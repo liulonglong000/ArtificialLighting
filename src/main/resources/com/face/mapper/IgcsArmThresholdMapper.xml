@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.face.mapper.IgcsArmThresholdMapper" >
+  <resultMap id="BaseResultMap" type="com.face.model.IgcsArmThreshold" >
+    <id column="arm_strategy_id" property="armStrategyId" jdbcType="VARCHAR" />
+    <result column="gateway_id" property="gatewayId" jdbcType="VARCHAR" />
+    <result column="node_id" property="nodeId" jdbcType="VARCHAR" />
+    <result column="threshold_id" property="thresholdId" jdbcType="INTEGER" />
+    <result column="threshold_type" property="thresholdType" jdbcType="VARCHAR" />
+    <result column="is_use" property="isUse" jdbcType="INTEGER" />
+    <result column="start_hour" property="startHour" jdbcType="INTEGER" />
+    <result column="start_min" property="startMin" jdbcType="INTEGER" />
+    <result column="end_hour" property="endHour" jdbcType="INTEGER" />
+    <result column="end_min" property="endMin" jdbcType="INTEGER" />
+    <result column="sensor_type_code" property="sensorTypeCode" jdbcType="VARCHAR" />
+    <result column="sensor_id" property="sensorId" jdbcType="VARCHAR" />
+    <result column="compare_type" property="compareType" jdbcType="VARCHAR" />
+    <result column="compare_para" property="comparePara" jdbcType="INTEGER" />
+    <result column="equipment_type" property="equipmentType" jdbcType="VARCHAR" />
+    <result column="equipment_id" property="equipmentId" jdbcType="VARCHAR" />
+    <result column="operate_type" property="operateType" jdbcType="VARCHAR" />
+    <result column="operate_para" property="operatePara" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    arm_strategy_id, gateway_id, node_id, threshold_id, threshold_type, is_use, start_hour, 
+    start_min, end_hour, end_min, sensor_type_code, sensor_id, compare_type, compare_para, 
+    equipment_type, equipment_id, operate_type, operate_para
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.face.model.IgcsArmThresholdExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from igcs_arm_threshold
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from igcs_arm_threshold
+    where arm_strategy_id = #{armStrategyId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from igcs_arm_threshold
+    where arm_strategy_id = #{armStrategyId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.face.model.IgcsArmThresholdExample" >
+    delete from igcs_arm_threshold
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.face.model.IgcsArmThreshold" >
+    insert into igcs_arm_threshold (arm_strategy_id, gateway_id, node_id, 
+      threshold_id, threshold_type, is_use, 
+      start_hour, start_min, end_hour, 
+      end_min, sensor_type_code, sensor_id, 
+      compare_type, compare_para, equipment_type, 
+      equipment_id, operate_type, operate_para
+      )
+    values (#{armStrategyId,jdbcType=VARCHAR}, #{gatewayId,jdbcType=VARCHAR}, #{nodeId,jdbcType=VARCHAR}, 
+      #{thresholdId,jdbcType=INTEGER}, #{thresholdType,jdbcType=VARCHAR}, #{isUse,jdbcType=INTEGER}, 
+      #{startHour,jdbcType=INTEGER}, #{startMin,jdbcType=INTEGER}, #{endHour,jdbcType=INTEGER}, 
+      #{endMin,jdbcType=INTEGER}, #{sensorTypeCode,jdbcType=VARCHAR}, #{sensorId,jdbcType=VARCHAR}, 
+      #{compareType,jdbcType=VARCHAR}, #{comparePara,jdbcType=INTEGER}, #{equipmentType,jdbcType=VARCHAR}, 
+      #{equipmentId,jdbcType=VARCHAR}, #{operateType,jdbcType=VARCHAR}, #{operatePara,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.face.model.IgcsArmThreshold" >
+    insert into igcs_arm_threshold
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="armStrategyId != null" >
+        arm_strategy_id,
+      </if>
+      <if test="gatewayId != null" >
+        gateway_id,
+      </if>
+      <if test="nodeId != null" >
+        node_id,
+      </if>
+      <if test="thresholdId != null" >
+        threshold_id,
+      </if>
+      <if test="thresholdType != null" >
+        threshold_type,
+      </if>
+      <if test="isUse != null" >
+        is_use,
+      </if>
+      <if test="startHour != null" >
+        start_hour,
+      </if>
+      <if test="startMin != null" >
+        start_min,
+      </if>
+      <if test="endHour != null" >
+        end_hour,
+      </if>
+      <if test="endMin != null" >
+        end_min,
+      </if>
+      <if test="sensorTypeCode != null" >
+        sensor_type_code,
+      </if>
+      <if test="sensorId != null" >
+        sensor_id,
+      </if>
+      <if test="compareType != null" >
+        compare_type,
+      </if>
+      <if test="comparePara != null" >
+        compare_para,
+      </if>
+      <if test="equipmentType != null" >
+        equipment_type,
+      </if>
+      <if test="equipmentId != null" >
+        equipment_id,
+      </if>
+      <if test="operateType != null" >
+        operate_type,
+      </if>
+      <if test="operatePara != null" >
+        operate_para,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="armStrategyId != null" >
+        #{armStrategyId,jdbcType=VARCHAR},
+      </if>
+      <if test="gatewayId != null" >
+        #{gatewayId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeId != null" >
+        #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="thresholdId != null" >
+        #{thresholdId,jdbcType=INTEGER},
+      </if>
+      <if test="thresholdType != null" >
+        #{thresholdType,jdbcType=VARCHAR},
+      </if>
+      <if test="isUse != null" >
+        #{isUse,jdbcType=INTEGER},
+      </if>
+      <if test="startHour != null" >
+        #{startHour,jdbcType=INTEGER},
+      </if>
+      <if test="startMin != null" >
+        #{startMin,jdbcType=INTEGER},
+      </if>
+      <if test="endHour != null" >
+        #{endHour,jdbcType=INTEGER},
+      </if>
+      <if test="endMin != null" >
+        #{endMin,jdbcType=INTEGER},
+      </if>
+      <if test="sensorTypeCode != null" >
+        #{sensorTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorId != null" >
+        #{sensorId,jdbcType=VARCHAR},
+      </if>
+      <if test="compareType != null" >
+        #{compareType,jdbcType=VARCHAR},
+      </if>
+      <if test="comparePara != null" >
+        #{comparePara,jdbcType=INTEGER},
+      </if>
+      <if test="equipmentType != null" >
+        #{equipmentType,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentId != null" >
+        #{equipmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="operateType != null" >
+        #{operateType,jdbcType=VARCHAR},
+      </if>
+      <if test="operatePara != null" >
+        #{operatePara,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.face.model.IgcsArmThresholdExample" resultType="java.lang.Integer" >
+    select count(*) from igcs_arm_threshold
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update igcs_arm_threshold
+    <set >
+      <if test="record.armStrategyId != null" >
+        arm_strategy_id = #{record.armStrategyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gatewayId != null" >
+        gateway_id = #{record.gatewayId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nodeId != null" >
+        node_id = #{record.nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.thresholdId != null" >
+        threshold_id = #{record.thresholdId,jdbcType=INTEGER},
+      </if>
+      <if test="record.thresholdType != null" >
+        threshold_type = #{record.thresholdType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isUse != null" >
+        is_use = #{record.isUse,jdbcType=INTEGER},
+      </if>
+      <if test="record.startHour != null" >
+        start_hour = #{record.startHour,jdbcType=INTEGER},
+      </if>
+      <if test="record.startMin != null" >
+        start_min = #{record.startMin,jdbcType=INTEGER},
+      </if>
+      <if test="record.endHour != null" >
+        end_hour = #{record.endHour,jdbcType=INTEGER},
+      </if>
+      <if test="record.endMin != null" >
+        end_min = #{record.endMin,jdbcType=INTEGER},
+      </if>
+      <if test="record.sensorTypeCode != null" >
+        sensor_type_code = #{record.sensorTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sensorId != null" >
+        sensor_id = #{record.sensorId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.compareType != null" >
+        compare_type = #{record.compareType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comparePara != null" >
+        compare_para = #{record.comparePara,jdbcType=INTEGER},
+      </if>
+      <if test="record.equipmentType != null" >
+        equipment_type = #{record.equipmentType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentId != null" >
+        equipment_id = #{record.equipmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operateType != null" >
+        operate_type = #{record.operateType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operatePara != null" >
+        operate_para = #{record.operatePara,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update igcs_arm_threshold
+    set arm_strategy_id = #{record.armStrategyId,jdbcType=VARCHAR},
+      gateway_id = #{record.gatewayId,jdbcType=VARCHAR},
+      node_id = #{record.nodeId,jdbcType=VARCHAR},
+      threshold_id = #{record.thresholdId,jdbcType=INTEGER},
+      threshold_type = #{record.thresholdType,jdbcType=VARCHAR},
+      is_use = #{record.isUse,jdbcType=INTEGER},
+      start_hour = #{record.startHour,jdbcType=INTEGER},
+      start_min = #{record.startMin,jdbcType=INTEGER},
+      end_hour = #{record.endHour,jdbcType=INTEGER},
+      end_min = #{record.endMin,jdbcType=INTEGER},
+      sensor_type_code = #{record.sensorTypeCode,jdbcType=VARCHAR},
+      sensor_id = #{record.sensorId,jdbcType=VARCHAR},
+      compare_type = #{record.compareType,jdbcType=VARCHAR},
+      compare_para = #{record.comparePara,jdbcType=INTEGER},
+      equipment_type = #{record.equipmentType,jdbcType=VARCHAR},
+      equipment_id = #{record.equipmentId,jdbcType=VARCHAR},
+      operate_type = #{record.operateType,jdbcType=VARCHAR},
+      operate_para = #{record.operatePara,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.face.model.IgcsArmThreshold" >
+    update igcs_arm_threshold
+    <set >
+      <if test="gatewayId != null" >
+        gateway_id = #{gatewayId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeId != null" >
+        node_id = #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="thresholdId != null" >
+        threshold_id = #{thresholdId,jdbcType=INTEGER},
+      </if>
+      <if test="thresholdType != null" >
+        threshold_type = #{thresholdType,jdbcType=VARCHAR},
+      </if>
+      <if test="isUse != null" >
+        is_use = #{isUse,jdbcType=INTEGER},
+      </if>
+      <if test="startHour != null" >
+        start_hour = #{startHour,jdbcType=INTEGER},
+      </if>
+      <if test="startMin != null" >
+        start_min = #{startMin,jdbcType=INTEGER},
+      </if>
+      <if test="endHour != null" >
+        end_hour = #{endHour,jdbcType=INTEGER},
+      </if>
+      <if test="endMin != null" >
+        end_min = #{endMin,jdbcType=INTEGER},
+      </if>
+      <if test="sensorTypeCode != null" >
+        sensor_type_code = #{sensorTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorId != null" >
+        sensor_id = #{sensorId,jdbcType=VARCHAR},
+      </if>
+      <if test="compareType != null" >
+        compare_type = #{compareType,jdbcType=VARCHAR},
+      </if>
+      <if test="comparePara != null" >
+        compare_para = #{comparePara,jdbcType=INTEGER},
+      </if>
+      <if test="equipmentType != null" >
+        equipment_type = #{equipmentType,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentId != null" >
+        equipment_id = #{equipmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="operateType != null" >
+        operate_type = #{operateType,jdbcType=VARCHAR},
+      </if>
+      <if test="operatePara != null" >
+        operate_para = #{operatePara,jdbcType=INTEGER},
+      </if>
+    </set>
+    where arm_strategy_id = #{armStrategyId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.face.model.IgcsArmThreshold" >
+    update igcs_arm_threshold
+    set gateway_id = #{gatewayId,jdbcType=VARCHAR},
+      node_id = #{nodeId,jdbcType=VARCHAR},
+      threshold_id = #{thresholdId,jdbcType=INTEGER},
+      threshold_type = #{thresholdType,jdbcType=VARCHAR},
+      is_use = #{isUse,jdbcType=INTEGER},
+      start_hour = #{startHour,jdbcType=INTEGER},
+      start_min = #{startMin,jdbcType=INTEGER},
+      end_hour = #{endHour,jdbcType=INTEGER},
+      end_min = #{endMin,jdbcType=INTEGER},
+      sensor_type_code = #{sensorTypeCode,jdbcType=VARCHAR},
+      sensor_id = #{sensorId,jdbcType=VARCHAR},
+      compare_type = #{compareType,jdbcType=VARCHAR},
+      compare_para = #{comparePara,jdbcType=INTEGER},
+      equipment_type = #{equipmentType,jdbcType=VARCHAR},
+      equipment_id = #{equipmentId,jdbcType=VARCHAR},
+      operate_type = #{operateType,jdbcType=VARCHAR},
+      operate_para = #{operatePara,jdbcType=INTEGER}
+    where arm_strategy_id = #{armStrategyId,jdbcType=VARCHAR}
+  </update>
+</mapper>

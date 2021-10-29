@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.face.mapper.IgcsBAlarmMapper" >
+  <resultMap id="BaseResultMap" type="com.face.model.IgcsBAlarm" >
+    <id column="alarm_log_id" property="alarmLogId" jdbcType="VARCHAR" />
+    <result column="trade_id" property="tradeId" jdbcType="VARCHAR" />
+    <result column="alarm_message" property="alarmMessage" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="recv_user_id" property="recvUserId" jdbcType="VARCHAR" />
+    <result column="is_read" property="isRead" jdbcType="VARCHAR" />
+    <result column="read_time" property="readTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    alarm_log_id, trade_id, alarm_message, insert_time, insert_user_id, recv_user_id, 
+    is_read, read_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.face.model.IgcsBAlarmExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from igcs_b_alarm
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from igcs_b_alarm
+    where alarm_log_id = #{alarmLogId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from igcs_b_alarm
+    where alarm_log_id = #{alarmLogId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.face.model.IgcsBAlarmExample" >
+    delete from igcs_b_alarm
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.face.model.IgcsBAlarm" >
+    insert into igcs_b_alarm (alarm_log_id, trade_id, alarm_message, 
+      insert_time, insert_user_id, recv_user_id, 
+      is_read, read_time)
+    values (#{alarmLogId,jdbcType=VARCHAR}, #{tradeId,jdbcType=VARCHAR}, #{alarmMessage,jdbcType=VARCHAR}, 
+      #{insertTime,jdbcType=TIMESTAMP}, #{insertUserId,jdbcType=VARCHAR}, #{recvUserId,jdbcType=VARCHAR}, 
+      #{isRead,jdbcType=VARCHAR}, #{readTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.face.model.IgcsBAlarm" >
+    insert into igcs_b_alarm
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="alarmLogId != null" >
+        alarm_log_id,
+      </if>
+      <if test="tradeId != null" >
+        trade_id,
+      </if>
+      <if test="alarmMessage != null" >
+        alarm_message,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="recvUserId != null" >
+        recv_user_id,
+      </if>
+      <if test="isRead != null" >
+        is_read,
+      </if>
+      <if test="readTime != null" >
+        read_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="alarmLogId != null" >
+        #{alarmLogId,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeId != null" >
+        #{tradeId,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmMessage != null" >
+        #{alarmMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="recvUserId != null" >
+        #{recvUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="isRead != null" >
+        #{isRead,jdbcType=VARCHAR},
+      </if>
+      <if test="readTime != null" >
+        #{readTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.face.model.IgcsBAlarmExample" resultType="java.lang.Integer" >
+    select count(*) from igcs_b_alarm
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update igcs_b_alarm
+    <set >
+      <if test="record.alarmLogId != null" >
+        alarm_log_id = #{record.alarmLogId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tradeId != null" >
+        trade_id = #{record.tradeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alarmMessage != null" >
+        alarm_message = #{record.alarmMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.insertTime != null" >
+        insert_time = #{record.insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.insertUserId != null" >
+        insert_user_id = #{record.insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recvUserId != null" >
+        recv_user_id = #{record.recvUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isRead != null" >
+        is_read = #{record.isRead,jdbcType=VARCHAR},
+      </if>
+      <if test="record.readTime != null" >
+        read_time = #{record.readTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update igcs_b_alarm
+    set alarm_log_id = #{record.alarmLogId,jdbcType=VARCHAR},
+      trade_id = #{record.tradeId,jdbcType=VARCHAR},
+      alarm_message = #{record.alarmMessage,jdbcType=VARCHAR},
+      insert_time = #{record.insertTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{record.insertUserId,jdbcType=VARCHAR},
+      recv_user_id = #{record.recvUserId,jdbcType=VARCHAR},
+      is_read = #{record.isRead,jdbcType=VARCHAR},
+      read_time = #{record.readTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.face.model.IgcsBAlarm" >
+    update igcs_b_alarm
+    <set >
+      <if test="tradeId != null" >
+        trade_id = #{tradeId,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmMessage != null" >
+        alarm_message = #{alarmMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="recvUserId != null" >
+        recv_user_id = #{recvUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="isRead != null" >
+        is_read = #{isRead,jdbcType=VARCHAR},
+      </if>
+      <if test="readTime != null" >
+        read_time = #{readTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where alarm_log_id = #{alarmLogId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.face.model.IgcsBAlarm" >
+    update igcs_b_alarm
+    set trade_id = #{tradeId,jdbcType=VARCHAR},
+      alarm_message = #{alarmMessage,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      recv_user_id = #{recvUserId,jdbcType=VARCHAR},
+      is_read = #{isRead,jdbcType=VARCHAR},
+      read_time = #{readTime,jdbcType=TIMESTAMP}
+    where alarm_log_id = #{alarmLogId,jdbcType=VARCHAR}
+  </update>
+</mapper>

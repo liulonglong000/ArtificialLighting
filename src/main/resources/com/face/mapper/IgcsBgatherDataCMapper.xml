@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.face.mapper.IgcsBgatherDataCMapper" >
+  <resultMap id="BaseResultMap" type="com.face.model.IgcsBgatherDataC" >
+    <result column="gather_id" property="gatherId" jdbcType="VARCHAR" />
+    <result column="gather_time" property="gatherTime" jdbcType="TIMESTAMP" />
+    <result column="gateway_id" property="gatewayId" jdbcType="VARCHAR" />
+    <result column="node_id" property="nodeId" jdbcType="VARCHAR" />
+    <result column="sensor_type_code" property="sensorTypeCode" jdbcType="VARCHAR" />
+    <result column="sensor_id" property="sensorId" jdbcType="VARCHAR" />
+    <result column="sensor_value" property="sensorValue" jdbcType="REAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    gather_id, gather_time, gateway_id, node_id, sensor_type_code, sensor_id, sensor_value
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.face.model.IgcsBgatherDataCExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from igcs_b_gather_data_c
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.face.model.IgcsBgatherDataCExample" >
+    delete from igcs_b_gather_data_c
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.face.model.IgcsBgatherDataC" >
+    insert into igcs_b_gather_data_c (gather_id, gather_time, gateway_id, 
+      node_id, sensor_type_code, sensor_id, 
+      sensor_value)
+    values (#{gatherId,jdbcType=VARCHAR}, #{gatherTime,jdbcType=TIMESTAMP}, #{gatewayId,jdbcType=VARCHAR}, 
+      #{nodeId,jdbcType=VARCHAR}, #{sensorTypeCode,jdbcType=VARCHAR}, #{sensorId,jdbcType=VARCHAR}, 
+      #{sensorValue,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.face.model.IgcsBgatherDataC" >
+    insert into igcs_b_gather_data_c
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gatherId != null" >
+        gather_id,
+      </if>
+      <if test="gatherTime != null" >
+        gather_time,
+      </if>
+      <if test="gatewayId != null" >
+        gateway_id,
+      </if>
+      <if test="nodeId != null" >
+        node_id,
+      </if>
+      <if test="sensorTypeCode != null" >
+        sensor_type_code,
+      </if>
+      <if test="sensorId != null" >
+        sensor_id,
+      </if>
+      <if test="sensorValue != null" >
+        sensor_value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gatherId != null" >
+        #{gatherId,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherTime != null" >
+        #{gatherTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gatewayId != null" >
+        #{gatewayId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeId != null" >
+        #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorTypeCode != null" >
+        #{sensorTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorId != null" >
+        #{sensorId,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorValue != null" >
+        #{sensorValue,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.face.model.IgcsBgatherDataCExample" resultType="java.lang.Integer" >
+    select count(*) from igcs_b_gather_data_c
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update igcs_b_gather_data_c
+    <set >
+      <if test="record.gatherId != null" >
+        gather_id = #{record.gatherId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gatherTime != null" >
+        gather_time = #{record.gatherTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gatewayId != null" >
+        gateway_id = #{record.gatewayId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nodeId != null" >
+        node_id = #{record.nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sensorTypeCode != null" >
+        sensor_type_code = #{record.sensorTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sensorId != null" >
+        sensor_id = #{record.sensorId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sensorValue != null" >
+        sensor_value = #{record.sensorValue,jdbcType=REAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update igcs_b_gather_data_c
+    set gather_id = #{record.gatherId,jdbcType=VARCHAR},
+      gather_time = #{record.gatherTime,jdbcType=TIMESTAMP},
+      gateway_id = #{record.gatewayId,jdbcType=VARCHAR},
+      node_id = #{record.nodeId,jdbcType=VARCHAR},
+      sensor_type_code = #{record.sensorTypeCode,jdbcType=VARCHAR},
+      sensor_id = #{record.sensorId,jdbcType=VARCHAR},
+      sensor_value = #{record.sensorValue,jdbcType=REAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  
+  
+  <select id="getLastDataTime" resultType="java.util.Date">
+	select user.gather_time from igcs_b_gather_data_c as user
+	where user.gateway_id=#{gwId} and user.node_id=#{nodeId}
+    order by user.gather_time desc limit 1
+  </select>
+  <select id="getSensorLastRec" resultType="java.util.Date">
+	select user.gather_time from igcs_b_gather_data_c as user
+	where user.gateway_id=#{gwId} and user.node_id=#{nodeId} and user.sensor_id=#{sensorId} and user.sensor_type_code=#{sensorTypeCode}
+    order by user.gather_time desc limit 1
+  </select>
+  <select id="selectRecentSensorData" resultType="com.face.entity.SensorData">
+	select user.gather_time,user.sensor_value from igcs_b_gather_data_c as user
+	where user.gateway_id=#{gwId} and user.node_id=#{nodeId} and user.sensor_id=#{sensorId} and user.sensor_type_code=#{sensorTypeCode} and user.gather_time>=#{startTime}
+    order by user.gather_time asc
+  </select>
+  <select id="findHistoryByFilter" resultType="com.face.model.IgcsBgatherDataC">
+	select user.gather_time,user.sensor_value,user.sensor_type_code,user.sensor_id from igcs_b_gather_data_c as user
+	where user.gateway_id=#{gwId} and user.node_id=#{nodeId} and <![CDATA[ user.gather_time>=#{startTime} and user.gather_time<=#{endTime}]]>
+    order by user.sensor_type_code asc, user.sensor_id asc, user.gather_time asc
+  </select>
+  <select id="findHistoryByCondition" resultType="com.face.entity.SensorData">
+	select user.gather_time,user.sensor_value from igcs_b_gather_data_c as user
+	where user.gateway_id=#{gwId} and user.node_id=#{nodeId} and user.sensor_type_code=#{sensorType} and user.sensor_id=#{sensorId} 
+	and <![CDATA[ user.gather_time>=#{startTime} and user.gather_time<=#{endTime}]]>
+    order by user.sensor_type_code asc, user.sensor_id asc, user.gather_time asc
+  </select>
+</mapper>

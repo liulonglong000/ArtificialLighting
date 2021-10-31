@@ -409,7 +409,8 @@ public class GatewayController extends LoginController{
 			@ApiImplicitParam(name = "ghId", value = "温室id", required = false, paramType = "query", dataType = "String") }) 
 	@PostMapping("/getGhInfo")
 	public void getGhInfo(HttpServletResponse response, String ghId) throws Exception {
-		try {			
+		try {
+
 			IgcsIgreenhouse info = gatewayService.findGhById(ghId);
 			if (info == null) {
 				returnJsonWithMsg(response, "该温室不存在，请刷新后重试！");	
@@ -436,6 +437,12 @@ public class GatewayController extends LoginController{
 			jObj1.put("pic", StringUtil.getStringForDL(info.getGreenhousePic()));
 			jObj1.put("userId", info.getUserId());
 			jObj1.put("userName", StringUtil.getStringNotNull(userInfo.getTruename()));
+
+			JSONArray copyType = new JSONArray(); //农作物类别
+			copyType.add("草莓");
+			copyType.add("苹果");
+			copyType.add("葡萄");
+			jObj1.put("copyType",copyType);
 			
 			JSONArray jArrayN = new JSONArray();
 			for (IgcsInodeinfo infoN : lst) {
@@ -1621,9 +1628,7 @@ public class GatewayController extends LoginController{
 			returnJsonWithMsg(response, "查询园区的节点列表失败（" + e + "）！");
 		}
 	}
-	
-	
-	
+
 	
 	@PostMapping("/getNodesOfPark")
 	public void getNodesOfPark(HttpServletResponse response, String userId) throws Exception {
@@ -1712,13 +1717,17 @@ public class GatewayController extends LoginController{
 	
 	@PostMapping("/mdyGhInfoEx")
 	public void mdyGhInfoEx(HttpServletResponse response, String ghId, String userId, String ghName, String ghAddress, 
-			String ghRemark, String gwNodes, MultipartFile picSel, String picSrcFile) throws Exception {
+			String ghRemark, String gwNodes, MultipartFile picSel, String picSrcFile, String ghPlant, String plantDirection,String count) throws Exception {
 		try {			
 			IgcsIgreenhouse info = gatewayService.findGhById(ghId);
 			if (info == null) {
 				returnJsonWithMsg(response,"该温室不存在，请刷新后重试！");	
 				return;		
 			}
+
+			System.out.println(ghPlant);
+			System.out.println(plantDirection);
+			System.out.println(count);
 			
 			info.setGreenhouseId(ghId);
 			info.setGreenhouseName(ghName);

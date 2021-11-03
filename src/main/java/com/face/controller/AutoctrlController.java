@@ -1,10 +1,13 @@
 package com.face.controller;
 
+import com.face.entity.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -20,16 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.face.controller.LoginController;
-import com.face.entity.ArmStrategyInfo;
-import com.face.entity.DataForOperationAdd;
-import com.face.entity.DataForThresholdAdd;
-import com.face.entity.EquipmentInfo;
-import com.face.entity.OperationGroupInfo;
-import com.face.entity.OperationInfo;
-import com.face.entity.SensorInfo;
-import com.face.entity.StrategyInfo;
-import com.face.entity.ThresholdGroupInfo;
-import com.face.entity.ThresholdInfo;
 import com.face.model.IgcsArmThreshold;
 import com.face.model.IgcsBTrade;
 import com.face.model.IgcsChoperation;
@@ -1412,4 +1405,53 @@ public class AutoctrlController extends LoginController {
 			returnJsonWithMsg(response, "获取trade结果失败（" + e + "）！");
 		}
 	}
+	@ApiOperation(value = "查询病毒诊断列表")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "token", value = "token", required = true, paramType = "query", dataType = "String"),
+			@ApiImplicitParam(name = "ghId", value = "温室ID", required = false, paramType = "query", dataType = "String") })
+	@PostMapping("/queryDiagnosisGroup")
+	public void queryDiagnosisGroup(HttpServletResponse response, String ghId, String status) throws Exception {
+		try {
+			//测试程序
+			List<DiagnosisInfo> lstTgs = new ArrayList<>();
+
+			System.out.println(status);
+			if(status.equals("未采集或采集中")){
+				lstTgs.add(new DiagnosisInfo("11111","011","2009-01-01","2009-01-05",0,"实验采集",5,0,""));
+				lstTgs.add(new DiagnosisInfo("11112","011","2009-01-02","2009-01-06",0,"预防xx病发病的概率>90%",6,0,""));
+				lstTgs.add(new DiagnosisInfo("11113","011","2009-01-03","2009-01-07",1,"实验采集",7,3,""));
+			}else{
+				lstTgs.add(new DiagnosisInfo("11114","011","2009-01-04","2009-01-09",2,"实验采集",8,8,"2009-01-09"));
+				lstTgs.add(new DiagnosisInfo("11115","011","2009-01-05","2009-01-10",3,"实验采集",9,9,"2009-01-09"));
+			}
+
+			JSONArray jArray = new JSONArray();
+
+			JSONObject jObj0 = new JSONObject();
+			jObj0.put("message", "success");
+			jArray.add(jObj0);
+
+			for (DiagnosisInfo diagnosisInfo : lstTgs) {
+				JSONObject jObj2 = new JSONObject();
+				jObj2.put("dgId", diagnosisInfo.getDgId());
+				jObj2.put("dgHouseId", diagnosisInfo.getDgHouseId());
+				jObj2.put("dgInDate", diagnosisInfo.getDgInDate());
+				jObj2.put("dgPreFinDate", diagnosisInfo.getDgPreFinDate());
+				jObj2.put("dgStatus", diagnosisInfo.getDgStatus());
+				jObj2.put("dgReason", diagnosisInfo.getDgReason());
+				jObj2.put("dgPlanNum", diagnosisInfo.getDgPlanNum());
+				jObj2.put("dgRealNum", diagnosisInfo.getDgRealNum());
+				jObj2.put("dgFinDate", diagnosisInfo.getDgFinDate());
+				System.out.println(diagnosisInfo.getDgFinDate());
+				jArray.add(jObj2);
+			}
+
+			returnJsonArray(response, jArray);
+		} catch (Exception e) {
+			log.error("queryThresholdGroupAction error:", e);
+			e.printStackTrace();
+			returnJsonWithMsg(response, "查询阈值组失败（" + e + "）！");
+		}
+	}
+
 }

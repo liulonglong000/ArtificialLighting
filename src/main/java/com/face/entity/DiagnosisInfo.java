@@ -7,13 +7,13 @@ public class DiagnosisInfo {
     private String dgHouseId;
     private String dgInDate;
     private String dgPreFinDate;
-    private int dgStatus;
+    private String dgStatus;
     private String dgReason;
     private int dgPlanNum;
     private int dgRealNum;
     private String dgFinDate;
 
-    public DiagnosisInfo(String dgId, String dgHouseId, String dgInDate, String dgPreFinDate, int dgStatus, String dgReason, int dgPlanNum, int dgRealNum, String dgFinDate) {
+    public DiagnosisInfo(String dgId, String dgHouseId, String dgInDate, String dgPreFinDate, String dgStatus, String dgReason, int dgPlanNum, int dgRealNum, String dgFinDate) {
         this.dgId = dgId;
         this.dgHouseId = dgHouseId;
         this.dgInDate = dgInDate;
@@ -41,7 +41,7 @@ public class DiagnosisInfo {
         this.dgPreFinDate = dgPreFinDate;
     }
 
-    public void setDgStatus(int dgStatus) {
+    public void setDgStatus(String dgStatus) {
         this.dgStatus = dgStatus;
     }
 
@@ -77,7 +77,7 @@ public class DiagnosisInfo {
         return dgPreFinDate;
     }
 
-    public int getDgStatus() {
+    public String getDgStatus() {
         return dgStatus;
     }
 

@@ -1417,12 +1417,12 @@ public class AutoctrlController extends LoginController {
 
 			System.out.println(status);
 			if(status.equals("未采集或采集中")){
-				lstTgs.add(new DiagnosisInfo("11111","011","2009-01-01","2009-01-05",0,"实验采集",5,0,""));
-				lstTgs.add(new DiagnosisInfo("11112","011","2009-01-02","2009-01-06",0,"预防xx病发病的概率>90%",6,0,""));
-				lstTgs.add(new DiagnosisInfo("11113","011","2009-01-03","2009-01-07",1,"实验采集",7,3,""));
+				lstTgs.add(new DiagnosisInfo("11111","011","2009-01-01","2009-01-05","0","实验采集",5,0,""));
+				lstTgs.add(new DiagnosisInfo("11112","011","2009-01-02","2009-01-06","0","预防xx病发病的概率>90%",6,0,""));
+				lstTgs.add(new DiagnosisInfo("11113","011","2009-01-03","2009-01-07","1","实验采集",7,3,""));
 			}else{
-				lstTgs.add(new DiagnosisInfo("11114","011","2009-01-04","2009-01-09",2,"实验采集",8,8,"2009-01-09"));
-				lstTgs.add(new DiagnosisInfo("11115","011","2009-01-05","2009-01-10",3,"实验采集",9,9,"2009-01-09"));
+				lstTgs.add(new DiagnosisInfo("11114","011","2009-01-04","2009-01-09","2","实验采集",8,8,"2009-01-09"));
+				lstTgs.add(new DiagnosisInfo("11115","011","2009-01-05","2009-01-10","3","实验采集",9,9,"2009-01-09"));
 			}
 
 			JSONArray jArray = new JSONArray();
@@ -1445,6 +1445,57 @@ public class AutoctrlController extends LoginController {
 				System.out.println(diagnosisInfo.getDgFinDate());
 				jArray.add(jObj2);
 			}
+
+			returnJsonArray(response, jArray);
+		} catch (Exception e) {
+			log.error("queryThresholdGroupAction error:", e);
+			e.printStackTrace();
+			returnJsonWithMsg(response, "查询阈值组失败（" + e + "）！");
+		}
+	}
+	@ApiOperation(value = "查询病毒诊断列表")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "token", value = "token", required = true, paramType = "query", dataType = "String"),
+			@ApiImplicitParam(name = "ghId", value = "温室ID", required = false, paramType = "query", dataType = "String") })
+	@PostMapping("/queryDetail")
+	public void queryDetail(HttpServletResponse response, String ghId, String status) throws Exception {
+		try {
+			//测试程序
+			List<DignoseDetail> lstTgs = new ArrayList<>();
+
+			System.out.println("--------");
+			lstTgs.add(new DignoseDetail("2021090801",1,5,"上风口上方","","","","","","","","","","","",""));
+			lstTgs.add(new DignoseDetail("2021090801",2,15,"上风口下方","","","","","","","","","","","",""));
+			lstTgs.add(new DignoseDetail("2021090801",3,7,"上风口附近","","","","","","","","","","","",""));
+
+
+			JSONArray jArray = new JSONArray();
+
+			JSONObject jObj0 = new JSONObject();
+			jObj0.put("message", "success");
+			jArray.add(jObj0);
+
+			for (DignoseDetail dignoseDetail : lstTgs) {
+				JSONObject jObj2 = new JSONObject();
+				jObj2.put("ddId", dignoseDetail.getDdId());
+				jObj2.put("collId", dignoseDetail.getCollId());
+				jObj2.put("collRow", dignoseDetail.getCollRow());
+				jObj2.put("collArea", dignoseDetail.getCollArea());
+				jObj2.put("frontFileName", dignoseDetail.getFrontFileName());
+				jObj2.put("front1FileName", dignoseDetail.getFront1FileName());
+				jObj2.put("front2FileName", dignoseDetail.getFront2FileName());
+				jObj2.put("front3FileName", dignoseDetail.getFront3FileName());
+				jObj2.put("front1Position", dignoseDetail.getFront1Position());
+				jObj2.put("front2Position", dignoseDetail.getFront2Position());
+				jObj2.put("front3Position", dignoseDetail.getFront3Position());
+				jObj2.put("back1FileName", dignoseDetail.getBack1FileName());
+				jObj2.put("back2FileName", dignoseDetail.getBack2FileName());
+				jObj2.put("back3FileName", dignoseDetail.getBack3FileName());
+				jObj2.put("status", dignoseDetail.getStatus());
+				jObj2.put("finishTime", dignoseDetail.getFinishTime());
+				jArray.add(jObj2);
+			}
+			System.out.println(jArray.size());
 
 			returnJsonArray(response, jArray);
 		} catch (Exception e) {
